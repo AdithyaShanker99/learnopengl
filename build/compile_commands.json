@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/adi/Desktop/learnopengl/build",
+  "command": "/usr/bin/cc   -g -o CMakeFiles/learn_open_gl.dir/src/glad.c.o -c /home/adi/Desktop/learnopengl/src/glad.c",
+  "file": "/home/adi/Desktop/learnopengl/src/glad.c"
+},
+{
+  "directory": "/home/adi/Desktop/learnopengl/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/learn_open_gl.dir/src/main.cpp.o -c /home/adi/Desktop/learnopengl/src/main.cpp",
+  "file": "/home/adi/Desktop/learnopengl/src/main.cpp"
+},
+{
+  "directory": "/home/adi/Desktop/learnopengl/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/learn_open_gl.dir/src/EBO.cpp.o -c /home/adi/Desktop/learnopengl/src/EBO.cpp",
+  "file": "/home/adi/Desktop/learnopengl/src/EBO.cpp"
+},
+{
+  "directory": "/home/adi/Desktop/learnopengl/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/learn_open_gl.dir/src/VBO.cpp.o -c /home/adi/Desktop/learnopengl/src/VBO.cpp",
+  "file": "/home/adi/Desktop/learnopengl/src/VBO.cpp"
+},
+{
+  "directory": "/home/adi/Desktop/learnopengl/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/learn_open_gl.dir/src/VAO.cpp.o -c /home/adi/Desktop/learnopengl/src/VAO.cpp",
+  "file": "/home/adi/Desktop/learnopengl/src/VAO.cpp"
+},
+{
+  "directory": "/home/adi/Desktop/learnopengl/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/learn_open_gl.dir/src/shaderClass.cpp.o -c /home/adi/Desktop/learnopengl/src/shaderClass.cpp",
+  "file": "/home/adi/Desktop/learnopengl/src/shaderClass.cpp"
+}
+]
