@@ -11,6 +11,10 @@ file(REMOVE_RECURSE
   "CMakeFiles/learn_open_gl.dir/src/main.cpp.o.d"
   "CMakeFiles/learn_open_gl.dir/src/shaderClass.cpp.o"
   "CMakeFiles/learn_open_gl.dir/src/shaderClass.cpp.o.d"
+  "CMakeFiles/learn_open_gl.dir/src/stb.cpp.o"
+  "CMakeFiles/learn_open_gl.dir/src/stb.cpp.o.d"
+  "CMakeFiles/learn_open_gl.dir/src/textures.cpp.o"
+  "CMakeFiles/learn_open_gl.dir/src/textures.cpp.o.d"
   "learn_open_gl"
   "learn_open_gl.pdb"
 )

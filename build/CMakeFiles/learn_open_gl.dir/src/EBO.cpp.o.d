@@ -1,8 +1,7 @@
 CMakeFiles/learn_open_gl.dir/src/EBO.cpp.o: \
  /home/adi/Desktop/learnopengl/src/EBO.cpp /usr/include/stdc-predef.h \
  /home/adi/Desktop/learnopengl/src/../Headers/EBO.h \
- /home/adi/Desktop/learnopengl/src/../Headers/glad.h \
- /usr/include/KHR/khrplatform.h \
+ /usr/local/include/glad.h /usr/include/KHR/khrplatform.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \

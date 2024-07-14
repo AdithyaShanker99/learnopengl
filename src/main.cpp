@@ -1,11 +1,16 @@
-#include "../Headers/glad.h"
+#include <glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <random>
+#include <math.h>
+#include <stb_image.h>
+
+
 #include "../Headers/EBO.h"
 #include "../Headers/VBO.h"
 #include "../Headers/VAO.h"
 #include "../Headers/shaderClass.h"
+#include "../Headers/Textures.h"
 
 
 
@@ -23,21 +28,19 @@ int main()
 
     GLfloat vertices[] =
 	{
-		-0.5f, -0.5f, 0.0f, 
-		-0.5f, 0.5f, 0.0f,
-		0.5f, 0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f
+		-0.5f, -0.5f * float(sqrt(3)) / 3,     0.0f,          1.0f, 0.0f, 0.0f,      -1.0f, -1.0f,
+		0.5f, -0.5f * float(sqrt(3)) / 3,      0.0f,          1.0f, 0.0f, 0.0f,      0.5f, 2.0f,
+		0.0f, 0.5f * float(sqrt(3)) * 2 / 3,   0.0f,          0.0f, 1.0f, 0.0f,      2.0f, -1.0f,
 
 	};
 
     GLuint indices[] =
     {
-        0,1,2,
-        0,3,2
+        0,2,1
     };
 
 
-    GLFWwindow* window = glfwCreateWindow(400, 400, "I made this", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1000, 1000, "I made this", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "FAILED TO CREATE WINDOW" << std::endl;
@@ -48,9 +51,9 @@ int main()
 
     gladLoadGL();
 
-    glViewport(0, 0, 400, 400);
+    glViewport(0, 0, 1000, 1000);
 
-    Shader shaderProgram("../Resource Files/Shaders/default.vert", "../Resource Files/Shaders/default.frag");
+    Shader shaderProgram("../Resources/Shaders/default.vert", "../Resources/Shaders/default.frag");
 
     VAO VAO1;
     VAO1.Bind();
@@ -62,13 +65,31 @@ int main()
     EBO1.Bind();
 
 
-    VAO1.LinkVBO(VBO1, 0);
+    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 8*sizeof(float), (void *)0);
+    VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 8*sizeof(float), (void *)(3*sizeof(float)));
+    VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8*sizeof(float), (void *)(6*sizeof(float)));
+
 
     VAO1.Unbind();
     VBO1.Unbind();
     EBO1.Unbind();
 
-    glClearColor(0.44f, 165.0f/255.0f, 0.0f, 1.0f);
+    GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
+    //GLuint vId = glGetUniformLocation(shaderProgram.ID, "velocity");
+
+
+
+    Texture tex("../Resources/Textures/dog.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE );
+
+    tex.Unbind();
+    
+    tex.texUnit(shaderProgram, "tex0", 0);
+
+
+
+
+
+    glClearColor(0.75f, 0.5f, 0.75f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glfwSwapBuffers(window);
 
@@ -78,14 +99,26 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
-        glClearColor(0.44f, 165.0f / 255.0f, 0.0f, 1.0f);
+        
+        glClearColor(0.75f, 0.5f, 0.75f, 1.0f);
+
         glClear(GL_COLOR_BUFFER_BIT);
 
-        shaderProgram.Activate();
+        // float prev_velocity = 0.01f;
 
+        // if(glfwGetTime() - prev_time >= 0.0) {
+        
+        //     glUniform1f(vId, 0.5f*sin(prev_time));
+        //     prev_time = glfwGetTime();
+        // }
+
+        glUniform1f(uniID, 0.0);
+        tex.Bind();
+
+        
         VAO1.Bind();
         
-        glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
 
@@ -96,6 +129,7 @@ int main()
     VAO1.Delete();
     VBO1.Delete();
     EBO1.Delete();
+    tex.Delete();
     shaderProgram.Delete();
    
 

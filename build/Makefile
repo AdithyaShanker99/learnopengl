@@ -273,6 +273,54 @@ src/shaderClass.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn_open_gl.dir/build.make CMakeFiles/learn_open_gl.dir/src/shaderClass.cpp.s
 .PHONY : src/shaderClass.cpp.s
 
+src/stb.o: src/stb.cpp.o
+.PHONY : src/stb.o
+
+# target to build an object file
+src/stb.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn_open_gl.dir/build.make CMakeFiles/learn_open_gl.dir/src/stb.cpp.o
+.PHONY : src/stb.cpp.o
+
+src/stb.i: src/stb.cpp.i
+.PHONY : src/stb.i
+
+# target to preprocess a source file
+src/stb.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn_open_gl.dir/build.make CMakeFiles/learn_open_gl.dir/src/stb.cpp.i
+.PHONY : src/stb.cpp.i
+
+src/stb.s: src/stb.cpp.s
+.PHONY : src/stb.s
+
+# target to generate assembly for a file
+src/stb.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn_open_gl.dir/build.make CMakeFiles/learn_open_gl.dir/src/stb.cpp.s
+.PHONY : src/stb.cpp.s
+
+src/textures.o: src/textures.cpp.o
+.PHONY : src/textures.o
+
+# target to build an object file
+src/textures.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn_open_gl.dir/build.make CMakeFiles/learn_open_gl.dir/src/textures.cpp.o
+.PHONY : src/textures.cpp.o
+
+src/textures.i: src/textures.cpp.i
+.PHONY : src/textures.i
+
+# target to preprocess a source file
+src/textures.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn_open_gl.dir/build.make CMakeFiles/learn_open_gl.dir/src/textures.cpp.i
+.PHONY : src/textures.cpp.i
+
+src/textures.s: src/textures.cpp.s
+.PHONY : src/textures.s
+
+# target to generate assembly for a file
+src/textures.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn_open_gl.dir/build.make CMakeFiles/learn_open_gl.dir/src/textures.cpp.s
+.PHONY : src/textures.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -300,6 +348,12 @@ help:
 	@echo "... src/shaderClass.o"
 	@echo "... src/shaderClass.i"
 	@echo "... src/shaderClass.s"
+	@echo "... src/stb.o"
+	@echo "... src/stb.i"
+	@echo "... src/stb.s"
+	@echo "... src/textures.o"
+	@echo "... src/textures.i"
+	@echo "... src/textures.s"
 .PHONY : help
 
 

@@ -1,8 +1,7 @@
 CMakeFiles/learn_open_gl.dir/src/VAO.cpp.o: \
  /home/adi/Desktop/learnopengl/src/VAO.cpp /usr/include/stdc-predef.h \
  /home/adi/Desktop/learnopengl/src/../Headers/VAO.h \
- /home/adi/Desktop/learnopengl/src/../Headers/glad.h \
- /usr/include/KHR/khrplatform.h \
+ /usr/local/include/glad.h /usr/include/KHR/khrplatform.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \

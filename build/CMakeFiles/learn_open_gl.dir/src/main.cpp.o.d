@@ -1,7 +1,6 @@
 CMakeFiles/learn_open_gl.dir/src/main.cpp.o: \
  /home/adi/Desktop/learnopengl/src/main.cpp /usr/include/stdc-predef.h \
- /home/adi/Desktop/learnopengl/src/../Headers/glad.h \
- /usr/include/KHR/khrplatform.h \
+ /usr/local/include/glad.h /usr/include/KHR/khrplatform.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -182,9 +181,9 @@ CMakeFiles/learn_open_gl.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/random.tcc /usr/include/c++/11/numeric \
  /usr/include/c++/11/bits/stl_numeric.h /usr/include/c++/11/bit \
  /usr/include/c++/11/pstl/glue_numeric_defs.h \
- /usr/include/c++/11/pstl/execution_defs.h \
+ /usr/include/c++/11/pstl/execution_defs.h /usr/include/c++/11/math.h \
+ /usr/local/include/stb_image.h /usr/include/c++/11/stdlib.h \
  /home/adi/Desktop/learnopengl/src/../Headers/EBO.h \
- /home/adi/Desktop/learnopengl/src/../Headers/glad.h \
  /home/adi/Desktop/learnopengl/src/../Headers/VBO.h \
  /home/adi/Desktop/learnopengl/src/../Headers/VAO.h \
  /home/adi/Desktop/learnopengl/src/../Headers/VBO.h \
@@ -193,4 +192,6 @@ CMakeFiles/learn_open_gl.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
  /usr/include/c++/11/bits/fstream.tcc /usr/include/c++/11/sstream \
- /usr/include/c++/11/bits/sstream.tcc
+ /usr/include/c++/11/bits/sstream.tcc \
+ /home/adi/Desktop/learnopengl/src/../Headers/Textures.h \
+ /home/adi/Desktop/learnopengl/src/../Headers/shaderClass.h

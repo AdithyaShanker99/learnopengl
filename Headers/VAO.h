@@ -1,7 +1,7 @@
 #ifndef VAO_Class_H
 #define VAO_Class_H
 
-#include "glad.h"
+#include <glad.h>
 #include "VBO.h"
 
 class VAO
@@ -10,7 +10,7 @@ class VAO
          GLuint ID;
          VAO();
 
-         void LinkVBO(VBO VBO, GLuint layout);
+         void LinkAttrib(VBO VBO, GLuint layout, GLuint numcomponents, GLenum type, GLsizeiptr stride, void* offset);
 
          void Bind();
          void Unbind();

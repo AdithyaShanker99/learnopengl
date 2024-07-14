@@ -14,6 +14,8 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/adi/Desktop/learnopengl/src/VBO.cpp" "CMakeFiles/learn_open_gl.dir/src/VBO.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/VBO.cpp.o.d"
   "/home/adi/Desktop/learnopengl/src/main.cpp" "CMakeFiles/learn_open_gl.dir/src/main.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/main.cpp.o.d"
   "/home/adi/Desktop/learnopengl/src/shaderClass.cpp" "CMakeFiles/learn_open_gl.dir/src/shaderClass.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/shaderClass.cpp.o.d"
+  "/home/adi/Desktop/learnopengl/src/stb.cpp" "CMakeFiles/learn_open_gl.dir/src/stb.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/stb.cpp.o.d"
+  "/home/adi/Desktop/learnopengl/src/textures.cpp" "CMakeFiles/learn_open_gl.dir/src/textures.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/textures.cpp.o.d"
   )
 
 # Targets to which this target links.
