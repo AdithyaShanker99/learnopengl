@@ -4,6 +4,9 @@
 #include <random>
 #include <math.h>
 #include <stb_image.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 
 #include "../Headers/EBO.h"
@@ -11,47 +14,58 @@
 #include "../Headers/VAO.h"
 #include "../Headers/shaderClass.h"
 #include "../Headers/Textures.h"
-
-
+#include "../Headers/Camera.h"
 
 
 
 int main()
 {
+    
     glfwInit();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+    int width = 3840;
+    int height = 2160;
 
-
+    // Vertices coordinates
     GLfloat vertices[] =
-	{
-		-0.5f, -0.5f * float(sqrt(3)) / 3,     0.0f,          1.0f, 0.0f, 0.0f,      -1.0f, -1.0f,
-		0.5f, -0.5f * float(sqrt(3)) / 3,      0.0f,          1.0f, 0.0f, 0.0f,      0.5f, 2.0f,
-		0.0f, 0.5f * float(sqrt(3)) * 2 / 3,   0.0f,          0.0f, 1.0f, 0.0f,      2.0f, -1.0f,
+    { //     COORDINATES     /        COLORS      /   TexCoord  //
+        -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
+        -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	5.0f, 0.0f,
+        0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	    0.0f, 0.0f,
+        0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	    5.0f, 0.0f,
+        0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	    2.5f, 5.0f
+    };
 
-	};
-
+    // Indices for vertices order
     GLuint indices[] =
     {
-        0,2,1
+        0, 1, 2,
+        0, 2, 3,
+        0, 1, 4,
+        1, 2, 4,
+        2, 3, 4,
+        3, 0, 4
     };
 
 
-    GLFWwindow* window = glfwCreateWindow(1000, 1000, "I made this", NULL, NULL);
+
+    GLFWwindow* window = glfwCreateWindow(width, height, "I made this", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "FAILED TO CREATE WINDOW" << std::endl;
         glfwTerminate();
         return -1;
     }
+    
     glfwMakeContextCurrent(window);
 
     gladLoadGL();
 
-    glViewport(0, 0, 1000, 1000);
+    glViewport(0, 0, width, height);
 
     Shader shaderProgram("../Resources/Shaders/default.vert", "../Resources/Shaders/default.frag");
 
@@ -79,14 +93,11 @@ int main()
 
 
 
-    Texture tex("../Resources/Textures/dog.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE );
+    Texture tex("../Resources/Textures/brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE );
 
     tex.Unbind();
     
     tex.texUnit(shaderProgram, "tex0", 0);
-
-
-
 
 
     glClearColor(0.75f, 0.5f, 0.75f, 1.0f);
@@ -96,21 +107,32 @@ int main()
    
     double prev_time = glfwGetTime();
     float angle = 0.0;
+    glEnable(GL_DEPTH_TEST);
+
+
+    
+
+    Camera camera(width, height, glm::vec3(0.0f, 1.0f, 2.0f));
+    // glfwSetKeyCallback();
 
     while (!glfwWindowShouldClose(window))
     {
         
+        
         glClearColor(0.75f, 0.5f, 0.75f, 1.0f);
 
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // float prev_velocity = 0.01f;
+        shaderProgram.Activate();
 
-        // if(glfwGetTime() - prev_time >= 0.0) {
-        
-        //     glUniform1f(vId, 0.5f*sin(prev_time));
-        //     prev_time = glfwGetTime();
+        // double currentTime = glfwGetTime();
+        // if(currentTime - prev_time>=1/144)
+        // {
+        //     angle+=0.5f;
+        //     prev_time = currentTime;
         // }
+        camera.input_callback(window);
+        camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camera");
 
         glUniform1f(uniID, 0.0);
         tex.Bind();
@@ -118,7 +140,8 @@ int main()
         
         VAO1.Bind();
         
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+
 
         glfwSwapBuffers(window);
 
@@ -138,3 +161,7 @@ int main()
 
     return 0;
 }
+
+
+
+

@@ -7,6 +7,7 @@ add_executable(learn_open_gl
     Headers/VAO.h 
     Headers/shaderClass.h 
     Headers/Textures.h
+    Headers/Camera.h
     src/glad.c
     src/main.cpp
     src/EBO.cpp
@@ -15,6 +16,7 @@ add_executable(learn_open_gl
     src/shaderClass.cpp  
     src/stb.cpp
     src/textures.cpp
+    src/Camera.cpp
 )
 
 target_link_libraries(learn_open_gl glfw)

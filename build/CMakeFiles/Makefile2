@@ -81,12 +81,12 @@ clean: CMakeFiles/learn_open_gl.dir/clean
 CMakeFiles/learn_open_gl.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn_open_gl.dir/build.make CMakeFiles/learn_open_gl.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/learn_open_gl.dir/build.make CMakeFiles/learn_open_gl.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/adi/Desktop/learnopengl/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9 "Built target learn_open_gl"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/adi/Desktop/learnopengl/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10 "Built target learn_open_gl"
 .PHONY : CMakeFiles/learn_open_gl.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/learn_open_gl.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/adi/Desktop/learnopengl/build/CMakeFiles 9
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/adi/Desktop/learnopengl/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/learn_open_gl.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/adi/Desktop/learnopengl/build/CMakeFiles 0
 .PHONY : CMakeFiles/learn_open_gl.dir/rule

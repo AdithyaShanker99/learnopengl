@@ -38,5 +38,10 @@
   "directory": "/home/adi/Desktop/learnopengl/build",
   "command": "/usr/bin/c++   -g -o CMakeFiles/learn_open_gl.dir/src/textures.cpp.o -c /home/adi/Desktop/learnopengl/src/textures.cpp",
   "file": "/home/adi/Desktop/learnopengl/src/textures.cpp"
+},
+{
+  "directory": "/home/adi/Desktop/learnopengl/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/learn_open_gl.dir/src/Camera.cpp.o -c /home/adi/Desktop/learnopengl/src/Camera.cpp",
+  "file": "/home/adi/Desktop/learnopengl/src/Camera.cpp"
 }
 ]
