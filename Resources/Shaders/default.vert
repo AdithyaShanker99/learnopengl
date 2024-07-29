@@ -2,12 +2,17 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aColor;
 layout (location = 2) in vec2 aTex;
+layout (location = 3) in vec3 aNormal;
+
 
 out vec3 color;
 out vec2 texCoords;
+out vec3 Normal;
+out vec3 crntPos;
 
 uniform float scale;
 uniform mat4 camera;
+uniform mat4 model;
 
 
 //uniform float texCoord;
@@ -15,7 +20,9 @@ uniform mat4 camera;
 
 void main()
 {
-   gl_Position = camera*vec4( aPos.x + aPos.x * scale, aPos.y + aPos.y * scale, aPos.z + aPos.z*scale, 1.0);
+   crntPos = vec3(model * vec4 (aPos,1.0f));
+   gl_Position = camera*vec4( crntPos.x + crntPos.x * scale, crntPos.y + crntPos.y * scale, crntPos.z + crntPos.z*scale, 1.0);
    color = aColor;
    texCoords = aTex;
+   Normal = aNormal;
 };

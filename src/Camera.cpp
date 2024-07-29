@@ -67,6 +67,7 @@ void Camera::Inputs(GLFWwindow* window)
 	{
 		speed = 0.1f;
 	}
+	
 
 
 	// Handles mouse inputs
