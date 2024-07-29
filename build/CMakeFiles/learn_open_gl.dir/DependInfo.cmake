@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/adi/Desktop/learnopengl/src/glad.c" "CMakeFiles/learn_open_gl.dir/src/glad.c.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/glad.c.o.d"
   "/home/adi/Desktop/learnopengl/src/Camera.cpp" "CMakeFiles/learn_open_gl.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/Camera.cpp.o.d"
   "/home/adi/Desktop/learnopengl/src/EBO.cpp" "CMakeFiles/learn_open_gl.dir/src/EBO.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/EBO.cpp.o.d"
+  "/home/adi/Desktop/learnopengl/src/Mesh.cpp" "CMakeFiles/learn_open_gl.dir/src/Mesh.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/Mesh.cpp.o.d"
   "/home/adi/Desktop/learnopengl/src/VAO.cpp" "CMakeFiles/learn_open_gl.dir/src/VAO.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/VAO.cpp.o.d"
   "/home/adi/Desktop/learnopengl/src/VBO.cpp" "CMakeFiles/learn_open_gl.dir/src/VBO.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/VBO.cpp.o.d"
   "/home/adi/Desktop/learnopengl/src/main.cpp" "CMakeFiles/learn_open_gl.dir/src/main.cpp.o" "gcc" "CMakeFiles/learn_open_gl.dir/src/main.cpp.o.d"

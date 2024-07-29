@@ -1,20 +1,4 @@
-#include <glad.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
-#include <random>
-#include <math.h>
-#include <stb_image.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-
-#include "../Headers/EBO.h"
-#include "../Headers/VBO.h"
-#include "../Headers/VAO.h"
-#include "../Headers/shaderClass.h"
-#include "../Headers/Textures.h"
-#include "../Headers/Camera.h"
+#include"../Headers/Mesh.h"
 
 float fov = 45.0;
 
@@ -22,6 +6,54 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     fov+=yoffset;
 }
+
+int width = 3840;
+int height = 2160;
+
+// Vertices coordinates
+Vertex vertices[] =
+{ //               COORDINATES           /            COLORS          /           NORMALS         /       TEXTURE COORDINATES    //
+	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
+	Vertex{glm::vec3( 1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
+	Vertex{glm::vec3( 1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
+};
+
+// Indices for vertices order
+GLuint indices[] =
+{
+	0, 1, 2,
+	0, 2, 3
+};
+
+Vertex lightVertices[] =
+{ //     COORDINATES     //
+	Vertex{glm::vec3(-0.1f, -0.1f,  0.1f)},
+	Vertex{glm::vec3(-0.1f, -0.1f, -0.1f)},
+	Vertex{glm::vec3(0.1f, -0.1f, -0.1f)},
+	Vertex{glm::vec3(0.1f, -0.1f,  0.1f)},
+	Vertex{glm::vec3(-0.1f,  0.1f,  0.1f)},
+	Vertex{glm::vec3(-0.1f,  0.1f, -0.1f)},
+	Vertex{glm::vec3(0.1f,  0.1f, -0.1f)},
+	Vertex{glm::vec3(0.1f,  0.1f,  0.1f)}
+};
+
+GLuint lightIndices[] =
+{
+	0, 1, 2,
+	0, 2, 3,
+	0, 4, 7,
+	0, 7, 3,
+	3, 7, 6,
+	3, 6, 2,
+	2, 6, 5,
+	2, 5, 1,
+	1, 5, 4,
+	1, 4, 0,
+	4, 5, 6,
+	4, 6, 7
+};
+
 
 int main()
 {
@@ -31,80 +63,6 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    int width = 3840;
-    int height = 2160;
-
-    // Vertices coordinates
-    GLfloat pyramidVertices[] =
-    { //     COORDINATES     /        COLORS          /    TexCoord   /        NORMALS       //
-        -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-        -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-        0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 5.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-        0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, -1.0f, 0.0f, // Bottom side
-
-        -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-        -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-        0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,     -0.8f, 0.5f,  0.0f, // Left Side
-
-        -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-        0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-        0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f, -0.8f, // Non-facing side
-
-        0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,	 0.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
-        0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.8f, 0.5f,  0.0f, // Right side
-        0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.8f, 0.5f,  0.0f, // Right side
-
-        0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	 5.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
-        -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f, 	 0.0f, 0.0f,      0.0f, 0.5f,  0.8f, // Facing side
-        0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,	 2.5f, 5.0f,      0.0f, 0.5f,  0.8f  // Facing side
-    };
-
-    // Indices for vertices order
-    GLuint pyramidIndices[] =
-    {
-        0, 1, 2, // Bottom side
-        0, 2, 3, // Bottom side
-        4, 6, 5, // Left side
-        7, 9, 8, // Non-facing side
-        10, 12, 11, // Right side
-        13, 15, 14 // Facing side
-    };
-
-
-    GLfloat lightVertices[] =
-    { //     COORDINATES     //
-        -0.1f, -0.1f,  0.1f,  // Vertex 0
-        -0.1f, -0.1f, -0.1f,  // Vertex 1
-        0.1f, -0.1f, -0.1f,   // Vertex 2
-        0.1f, -0.1f,  0.1f,   // Vertex 3
-        -0.1f,  0.1f,  0.1f,  // Vertex 4
-        -0.1f,  0.1f, -0.1f,  // Vertex 5
-        0.1f,  0.1f, -0.1f,   // Vertex 6
-        0.1f,  0.1f,  0.1f    // Vertex 7
-    };
-
-    GLuint lightIndices[] =
-    {
-        // Bottom face
-        0, 1, 2,
-        0, 2, 3,
-        // Front face
-        0, 4, 7,
-        0, 7, 3,
-        // Right face
-        3, 7, 6,
-        3, 6, 2,
-        // Back face
-        2, 6, 5,
-        2, 5, 1,
-        // Left face
-        1, 5, 4,
-        1, 4, 0,
-        // Top face
-        4, 5, 6,
-        4, 6, 7
-    };
 
 
 
@@ -122,66 +80,29 @@ int main()
 
     glViewport(0, 0, width, height);
 
+    Texture textures[]
+	{
+		Texture("../Resources/Textures/planks.png", "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
+		Texture( "../Resources/Textures/planksSpec.png","specular", 1, GL_RED, GL_UNSIGNED_BYTE)
+	};
+
     Shader shaderProgram("../Resources/Shaders/default.vert", "../Resources/Shaders/default.frag");
 
-    VAO VAO1;
-    VAO1.Bind();
-
-    VBO VBO1(pyramidVertices, sizeof(pyramidVertices));
-    EBO EBO1(pyramidIndices, sizeof(pyramidIndices));
-
-    VBO1.Bind();
-    EBO1.Bind();
-
-
-    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 11*sizeof(float), (void *)0);
-    VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 11*sizeof(float), (void *)(3*sizeof(float)));
-    VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 11*sizeof(float), (void *)(6*sizeof(float)));
-    VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 11*sizeof(float), (void *)(8*sizeof(float)));
+    std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
+	std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
+	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
+	// Create floor mesh
+	Mesh floor(verts, ind, tex);
 
 
 
-    VAO1.Unbind();
-    VBO1.Unbind();
-    EBO1.Unbind();
-
-
-
-    Shader shaderLight("../Resources/Shaders/light.vert", "../Resources/Shaders/light.frag");
-
-    VAO VAO2;
-    VAO2.Bind();
-
-    VBO VBO2(lightVertices, sizeof(lightVertices));
-    EBO EBO2(lightIndices, sizeof(lightIndices));
-
-    VBO2.Bind();
-    EBO2.Bind();
-
-
-    VAO2.LinkAttrib(VBO2, 0, 3, GL_FLOAT, 3*sizeof(float), (void *)0);
-
-    VAO2.Unbind();
-    VBO2.Unbind();
-    EBO2.Unbind();
-
-    glm::vec4 lightColor = glm::vec4(1.0f, 1.0f,0.9f,1.0f);
-    glm::vec3 lightPos = glm::vec3(0.5f,0.5f,0.5f);
-    glm::mat4 lightModel = glm::mat4(1.0f);
-    lightModel = glm::translate(lightModel, lightPos);
-
-    glm::vec3 pyramidPos = glm::vec3(0.0f,0.0f,0.0f);
-    glm::mat4 pyramidModel = glm::mat4(1.0f);
-    pyramidModel = glm::translate(pyramidModel, pyramidPos);
-
-    shaderLight.Activate();
-    glUniformMatrix4fv(glGetUniformLocation(shaderLight.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
-    glUniform4f(glGetUniformLocation(shaderLight.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-
-    shaderProgram.Activate();
-    glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
-    glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-    glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+    // Shader for light cube
+	Shader lightShader("../Resources/Shaders/light.vert", "../Resources/Shaders/light.frag");
+	// Store mesh data in vectors for the mesh
+	std::vector <Vertex> lightVerts(lightVertices, lightVertices + sizeof(lightVertices) / sizeof(Vertex));
+	std::vector <GLuint> lightInd(lightIndices, lightIndices + sizeof(lightIndices) / sizeof(GLuint));
+	// Create light mesh
+	Mesh light(lightVerts, lightInd, tex);
 
 
     GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
@@ -189,24 +110,28 @@ int main()
 
 
 
-    Texture tex("../Resources/Textures/brick.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE );
+    glm::vec4 lightColor = glm::vec4(1.0f, 1.0f,0.9f,1.0f);
+    glm::vec3 lightPos = glm::vec3(0.5f,0.5f,0.5f);
+    glm::mat4 lightModel = glm::mat4(1.0f);
+    lightModel = glm::translate(lightModel, lightPos);
 
-    tex.Unbind();
-    
-    tex.texUnit(shaderProgram, "tex0", 0);
+	glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::mat4 objectModel = glm::mat4(1.0f);
+	objectModel = glm::translate(objectModel, objectPos);
 
 
-    glClearColor(0.75f, 0.5f, 0.75f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glfwSwapBuffers(window);
+	lightShader.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
+	glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	shaderProgram.Activate();
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(objectModel));
+	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
-   
-    double prev_time = glfwGetTime();
-    float angle = 0.0;
+
     glEnable(GL_DEPTH_TEST);
 
 
-    
 
     Camera camera(width, height, glm::vec3(0.0f, 0.0f, 3.0f));
     glfwSetScrollCallback(window, scroll_callback);
@@ -222,31 +147,12 @@ int main()
 
         shaderProgram.Activate();
 
-        // double currentTime = glfwGetTime();
-        // if(currentTime - prev_time>=1/144)
-        // {
-        //     angle+=0.5f;
-        //     prev_time = currentTime;
-        // }
+        
         camera.Inputs(window);
         camera.updateMatrix(fov, 0.1f, 100.0f);
-        glUniform3f(glGetUniformLocation(shaderProgram.ID, "cameraPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-
-        
-        camera.Matrix(shaderProgram, "camera");
-
-        glUniform1f(uniID, 0.0);
-        tex.Bind();
-
-        VAO1.Bind();
-        
-        glDrawElements(GL_TRIANGLES, sizeof(pyramidIndices)/sizeof(int), GL_UNSIGNED_INT, 0);
-
-        shaderLight.Activate();
-        camera.Matrix(shaderLight, "camera");
-        VAO2.Bind();
-        glDrawElements(GL_TRIANGLES, sizeof(lightIndices)/sizeof(int), GL_UNSIGNED_INT, 0);
-
+        // Draws different meshes
+		floor.Draw(shaderProgram, camera);
+		light.Draw(lightShader, camera);
 
         glfwSwapBuffers(window);
 
@@ -254,17 +160,14 @@ int main()
         glfwPollEvents();
     }
 
-    VAO1.Delete();
-    VBO1.Delete();
-    EBO1.Delete();
-    tex.Delete();
-    shaderProgram.Delete();
-   
-
-    glfwDestroyWindow(window);
-    glfwTerminate();
-
-    return 0;
+    // Delete all the objects we've created
+	shaderProgram.Delete();
+	lightShader.Delete();
+	// Delete window before ending the program
+	glfwDestroyWindow(window);
+	// Terminate GLFW before ending the program
+	glfwTerminate();
+	return 0;
 }
 
 

@@ -11,8 +11,10 @@ class Texture
 public:
 	// Reference ID of the Shader Program
 	GLuint ID;
-    GLenum type;
-	Texture(const char* filepath, GLenum textType, GLenum slot, GLenum format, GLenum pixelType);
+    const char* type;
+	GLuint unit;
+
+	Texture(const char* filepath, const char* textType, GLenum slot, GLenum format, GLenum pixelType);
 	// Assigns a texture unit to a texture
 	void texUnit(Shader& shader, const char* uniform, GLuint unit);
 	// Binds a texture
