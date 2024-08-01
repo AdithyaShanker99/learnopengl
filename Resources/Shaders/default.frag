@@ -23,6 +23,8 @@ uniform vec4 lightColor;
 uniform vec3 lightPos;
 // Gets the position of the camera from the main function
 uniform vec3 camPos;
+// type of lighting
+uniform float lightType;
 
 
 vec4 pointLight()
@@ -106,5 +108,5 @@ vec4 spotLight()
 void main()
 {
 	// outputs final color
-	FragColor = pointLight();
+	FragColor = direcLight();
 }

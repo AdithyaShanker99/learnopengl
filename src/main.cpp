@@ -10,6 +10,11 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 int width = 3840;
 int height = 2160;
 
+int w, h, nChannels;
+unsigned char *data = stbi_load("../resources/HeightMaps/iceland_heightmap.png",
+                                &w, &h, &nChannels,
+                                0);
+
 // Vertices coordinates
 Vertex vertices[] =
 { //               COORDINATES           /            COLORS          /           NORMALS         /       TEXTURE COORDINATES    //
